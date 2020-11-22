@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Mono Wasm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="connect-src * 'unsafe-inline';">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script type="text/javascript" src="mono-config.js"></script>
+    <script type="text/javascript" src="runtime.js"></script>
+    <script defer src="dotnet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rivets/0.9.6/rivets.bundled.min.js"></script>
+    <script src="node_modules/monaco-editor/min/vs/loader.js?v=4">
+    </script>
+    <style>
+        #monContainer{
+            margin-top:20px;margin-bottom:20px;margin-right:50px;margin-left:50px;min-height:400px;border:1px solid grey;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="feedback-body" class="container-fluid text-center">
+        <p id="loading"><i class="fa fa-refresh fa-spin" style="font-size:14px;margin-right:0.5em;"></i> Loading...
+        </p>
+    </div>
+    <div id="main-body-top" style="visibility: hidden" class="container text-center mb-4">
+        <h1>Compile and Run C# in Browser</h1>
+        <div class="mb-2">
+
+        </div>
+        <div class="mb-2">
+            <!-- <button type="button" onclick="App.btnCompile()" class="btn btn-primary">Compile</button> -->
+            <button type="button" onclick="App.btnRun()" class="btn btn-primary">Compile and Run</button>
+        </div>
+        <div>
+            <button type="button" onclick="App.shrink()" class="btn btn-secondary">Decrease Edistor Size</button>
+            <button type="button" onclick="App.grow()" class="btn btn-secondary">Increase Edistor Size</button>
+        </div>
+    </div>
+
+    <div id="main-body-monaco" class="container text-center">
+        <!-- MONOCO GOES HERE -->
+        <div id="monContainer" class="text-left mt-2" style="visibility: hidden;margin-right:50px;margin-left:50px;border:1px solid grey;">
+        </div>
+    </div>
+
+
+    <div id="main-body-bottom" style="visibility: hidden" class="container text-center mb-4">
+        <div id="outputlog" class="mt-4"></div>
+        <div id="compiling" class="container-fluid" rv-if="data.compiling">
+            <p id="loading"><i class="fa fa-refresh fa-spin" style="font-size:14px;margin-right:0.5em;"></i>
+                Compiling...
+            </p>
+        </div>
+        <div class="mt-4 mb-4" id="compilelog" style="font-size: .8rem;">
+        </div>
+        <div id="mobileAssemblyDiv" class="mt-4 text-center" style="display: none;">
+                <div style="margin-bottom: 10px;">
+                    <select class="custom-select" id="ddlLoadSampleMobile" style="width: 200px;">
+                        <option selected>Select...</option>
+                        <option rv-each-sample="data.sampleList" rv-value="sample.value" >{ sample.name }</option>
+                    </select>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary ml-4" onclick="App.btnLoadCodeSample()"
+                    style="margin-bottom: 10px;">Load Code Sample</button>
+                </div>
+        </div>
+        <div id="assemblyDiv" class="mt-4 text-center" style="display: none;">
+
+            <table style="margin-right: auto;margin-left: auto;margin-bottom:20px;">
+                <tr>
+                    <td>
+                        <div style="margin-bottom: 10px;">
+                            <select class="custom-select" id="ddlLoadSample" style="width: 200px;">
+                                <option selected>Select...</option>
+                                <option rv-each-sample="data.sampleList" rv-value="sample.value" >{ sample.name }</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary ml-4" onclick="App.btnLoadCodeSample()"
+                            style="margin-bottom: 10px;">Load Code Sample</button>
+                    </td>
+                </tr>
+                <!-- <tr>
+                    <td>
+                        <input type="text" class="form-control" rv-value="data.newAssembly">
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary ml-4" onclick="App.btnAddAssembly()">Add
+                            Assembly</button>
+                    </td>
+                </tr> -->
+            </table>
+            <table style="margin-right: auto;margin-left: auto; display: none;">
+                <tr rv-each-item="data.assemblies">
+                    <td>
+                        <b>{ item }</b>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger ml-4"
+                            rv-on-click="data.btnRemoveAssembly">Remove</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="text-center">
+        <h6 class="card-title mt-4" id="githubLink1">
+            <a href="https://github.com/nbarkhina/CSharp-In-Browser" target="_blank" style="color: black;">
+                View source on GitHub
+                <img src="github_logo.png" style="height: 25px; padding-bottom: 5px; padding-left: 10px;">
+            </a>
+        </h6>
+    </div>
+
+
+
+
+    <script type="text/javascript">
+
+    </script>
+    <script defer src="script.js"></script>
+</body>
+
+</html>
