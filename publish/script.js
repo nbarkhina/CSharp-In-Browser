@@ -40,6 +40,7 @@ class MyApp {
         document.getElementById("main-body-top").style.visibility = null;
         document.getElementById("main-body-bottom").style.visibility = null;
         document.getElementById("monContainer").style.visibility = null;
+        document.getElementById("githubDiv").style.visibility = null;
         BINDING.call_static_method("[WasmRoslyn]WasmRoslyn.Program:Main", [this, this.outputLog]);
 
         this.setupMonaco();
@@ -94,10 +95,13 @@ class MyApp {
 
         this.compileLog.innerHTML = log;
         this.compiling = false;
-        if (!this.mobile_device)
-            $('#assemblyDiv').show();
-        else
-            $('#mobileAssemblyDiv').show();
+
+        //enable buttons
+        $('#assemblyDiv').show();
+        document.getElementById('btnRun').disabled = false;
+        document.getElementById('btnShrink').disabled = false;
+        document.getElementById('btnGrow').disabled = false;
+
     }
 
     setRunLog(log){
