@@ -7,5 +7,3 @@ $MONO_TOOL = "C:\Program Files (x86)\Mono\bin\mono.exe"
 Start-Sleep -Seconds 1.5
 
 & $MONO_TOOL $WASM_SDK/packager.exe  --copy=ifnewer --out=publish --search-path=./managed/ --asset=index.html --asset=script.js  ./bin/WasmRoslyn.dll
-
-Copy-Item -Path 'node_modules' -Destination 'publish\node_modules' -recurse -Force
