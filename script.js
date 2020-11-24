@@ -136,8 +136,10 @@ class MyApp {
     }
 
     shrink(){
-        this.height-=100;
-        this.setHeight();
+        if (this.height>400){
+            this.height-=100;
+            this.setHeight();
+        }
     }
 
     grow(){
@@ -178,10 +180,7 @@ class MyApp {
     }
 
     btnLoadCodeSample(){
-        if (this.mobile_device)
-            myEditor.setValue(this[$('#ddlLoadSampleMobile')[0].value]);
-        else
-            myEditor.setValue(this[$('#ddlLoadSample')[0].value]);
+        myEditor.setValue(this[$('#ddlLoadSample')[0].value]);
     }
 
     setupSamples(){
@@ -227,13 +226,13 @@ namespace WasmRoslyn.Demo
         public async Task<string> Run()
         {
             return ReplaceIllegalCharactersForFilename("abc1@@23!");
-            }
-         public static string ReplaceIllegalCharactersForFilename(string input)
-         {
-             Regex rgx = new Regex("[^a-zA-Z0-9!@ -]");
-             string updated_string = rgx.Replace(input, "");
-             return updated_string;
-         }
+        }
+        public static string ReplaceIllegalCharactersForFilename(string input)
+        {
+            Regex rgx = new Regex("[^a-zA-Z0-9!@ -]");
+            string updated_string = rgx.Replace(input, "");
+            return updated_string;
+        }
     }
 }`;
         
@@ -248,15 +247,15 @@ namespace WasmRoslyn.Demo
     {
         public async Task<string> Run()
         {
-             string[] fruits = { "apple", "banana", "mango", "orange", 
-            "passionfruit", "grape" };
-                        var query =
-                            fruits.Select((fruit, index) =>
-                                            new { index, str = fruit.Substring(0, index) });
-                        string toReturn = "";
+            string[] fruits = { "apple", "banana", "mango", "orange", 
+                "passionfruit", "grape" };
+            var query = fruits.Select((fruit, index) =>
+                                new { index, str = fruit.Substring(0, index) });
+
+            string toReturn = "";
             foreach(var fruit in query)
             {
-            toReturn += "Index: " + fruit.index + " Fruit: " + fruit.str + "<br>";
+                toReturn += "Index: " + fruit.index + " Fruit: " + fruit.str + "<br>";
             }
             return toReturn;
         }
